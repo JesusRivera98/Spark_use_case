@@ -41,4 +41,21 @@ class AppSession {
 //      .partitionBy(partitionBy)
       .parquet(conf.getString(output))
   }
+  def writeParquet(df: DataFrame, output:String, partitionBy: String) ={
+    println(">>>>>" + conf.getString(output))
+    df.write.mode("overwrite")
+      .option("header", "true")
+      .partitionBy(partitionBy)
+      .parquet(conf.getString(output))
+  }
+  def writeParquetCSV(df: DataFrame, output:String, partitionBy: String) ={
+    println(">>>>>" + conf.getString(output))
+    df.write.mode("overwrite")
+      .partitionBy(partitionBy)
+      .csv(conf.getString(output))
+  }
+
+  def getConfig(string: String): String ={
+    conf.getString(string)
+  }
 }
